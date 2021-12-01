@@ -4,7 +4,13 @@ $secondary: #f1c232;
 body {
     background-color:white;
 }
+h1, h2, h3 {
+    font-family: 'Nunito', sans-serif;
+}
 
+p, a {
+    font-family: 'Nunito', sans-serif;
+}
 nav {
     background-color: $primary;
 }
