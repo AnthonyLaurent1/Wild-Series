@@ -13,7 +13,7 @@
         </div>
         <div>
             {% for season in seasons %}
-                <a class="btn btn-warning" href="{{ path('program_season_show', { programId: program.id, seasonId: season.id}) }}">{{ season.description }}</a></li>
+                <a class="btn btn-warning" href="{{ path('program_season_show', { program: program.id, season: season.id}) }}">{{ season.description }}</a></li>
             {% endfor %}
         </div>
         <div>
