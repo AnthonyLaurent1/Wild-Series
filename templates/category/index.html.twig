@@ -11,10 +11,10 @@
             </a>
         </div>
     {% else %}
-        Aucune série trouvée.
+        <div>
+            <p>Aucune série trouvée</p>
+        </div>
     {% endfor %}
 
-    <a href="{{ path('app_index') }}">
-        Retour à l'accueil
-    </a>
+    <a class="btn btn-warning" href="{{ path('app_index') }}">Retour à l'accueil</a>
 {% endblock %}

@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="/build/app.css">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -16,6 +15,5 @@
     <body>
         <header>{% include 'components/_navbar.html.twig' %}</header>
         {% block body %}{% endblock %}
-        <script src="/build/app.js"></script>
     </body>
 </html>

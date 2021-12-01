@@ -10,10 +10,9 @@
         <p>{{ program.summary }}</p>
         <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
     {% else %}
-        Aucune série trouvée.
+        <div>
+            <p>Aucune série trouvée</p>
+        </div>
     {% endfor %}
-    <div>
-        <a href="{{ path('category_index') }}">Retour à la liste des catégories</a>
-    </div>
-
+    <a class="btn btn-warning" href="{{ path('category_index') }}">Retour à la liste des catégories</a>
 {% endblock %}
