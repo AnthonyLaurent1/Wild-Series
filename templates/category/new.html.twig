@@ -1,10 +1,15 @@
 {% extends "base.html.twig" %}
 
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
     <div class="container mt-5">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Add category</button>
-        {{ form_end(form) }}
+        <h1 class="text-center mb-5">Ajouter une nouvelle categorie</h1>
+        <div class="col-3 mx-auto">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit">Ajouter une categorie</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
