@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ actor.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ actor.name }}</h1>
+        <div class="text-center">
+            {% for program in actor.programs %}
+                <a class="btn btn-custom" href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a>
+            {% else %}
+                <p>Aucun programme trouvé</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

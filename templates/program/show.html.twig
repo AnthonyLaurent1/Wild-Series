@@ -10,6 +10,12 @@
         <div class="m-5">
             <h1 class="text-center mt-3">{{ program.title }}</h1>
             <p>Catégorie : {{ program.category.name }}</p>
+            <h2>Acteurs</h2>
+            <ul>
+                {% for actor in program.actors %}
+                    <li><a class="btn btn-custom" href="{{ path('actor_show', {id: actor.id}) }}">{{ actor.name }}</a></li>
+                {% endfor %}
+            </ul>
             <p>Année de sortie : {{ program.year }}</p>
             <p>{{ program.summary }}</p>
             {% for season in seasons %}
