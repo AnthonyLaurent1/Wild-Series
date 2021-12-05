@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Season;
 use App\Form\SeasonType;
 use App\Repository\SeasonRepository;
+use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,14 +29,16 @@ class SeasonController extends AbstractController
 
     /**
      * @Route("/new", name="season_new", methods={"GET", "POST"})
+     *  @param Slugify $slugify
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $season = new Season();
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $season->setSlug($slugify->generate($season->getDescription()));
             $entityManager->persist($season);
             $entityManager->flush();
 
@@ -49,7 +52,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="season_show", methods={"GET"})
+     * @Route("/{slug}", name="season_show", methods={"GET"})
      */
     public function show(Season $season): Response
     {
@@ -59,14 +62,15 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="season_edit", methods={"GET", "POST"})
+     * @Route("/{slug}/edit", name="season_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Season $season, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Season $season, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $season->setSlug($slugify->generate($season->getDescription()));
             $entityManager->flush();
 
             return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
@@ -79,7 +83,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="season_delete", methods={"POST"})
+     * @Route("/{slug}", name="season_delete", methods={"POST"})
      */
     public function delete(Request $request, Season $season, EntityManagerInterface $entityManager): Response
     {

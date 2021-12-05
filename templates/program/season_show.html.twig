@@ -11,7 +11,7 @@
         <div class="accordion" id="accordionExample">
             <h2 class="mb-3">Liste des episodes</h2>
             {% for episode in episodes %}
-                <h4><a href="{{ path('program_episode_show', { program : program.id, season : season.id, episode : episode.id }) }}">Episode {{ episode.number }} : {{ episode.title }}</a></h4>
+                <h4><a href="{{ path('program_episode_show', { slug: program.slug, season : season.id, episode : episode.id }) }}">Episode {{ episode.number }} : {{ episode.title }}</a></h4>
             {% endfor %}
         </div>
         <a class="btn btn-warning mt-5" href="{{ path('app_index') }}">Retour à l'accueil</a>

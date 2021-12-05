@@ -7,7 +7,7 @@
         <h1 class="text-center">{{ actor.name }}</h1>
         <div class="text-center">
             {% for program in actor.programs %}
-                <a class="btn btn-custom" href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a>
+                <a class="btn btn-custom" href="{{ path("program_show", { slug: program.slug}) }}">{{ program.title }}</a>
             {% else %}
                 <p>Aucun programme trouvé</p>
             {% endfor %}

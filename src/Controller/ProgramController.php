@@ -6,6 +6,7 @@ use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Form\ProgramType;
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProgramController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("", name="index")
      */
     public function index(): Response
     {
@@ -31,8 +32,9 @@ class ProgramController extends AbstractController
 
     /**
      * @Route("/new", name="new")
+     * @param Slugify $slugify
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Slugify $slugify): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -40,6 +42,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $program->setSlug($slugify->generate($program->getTitle()));
             $entityManager->persist($program);
             $entityManager->flush();
             return $this->redirectToRoute('program_index');
@@ -50,7 +53,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="show")
+     * @Route("/{slug}", name="show")
      */
     public function show(Program $program): Response
     {
@@ -70,7 +73,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{program}/seasons/{season}", name="season_show")
+     * @Route("/{slug}/{season}", name="season_show")
      */
     public function showSeason(Program $program, Season $season): Response
     {
@@ -86,7 +89,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{program}/seasons/{season}/episode/{episode}", name="episode_show")
+     * @Route("/{slug}/{season}/{episode}", name="episode_show")
      */
     public function showEpisode(Program $program, Season $season, Episode $episode)
     {

@@ -19,7 +19,7 @@
             <p>Année de sortie : {{ program.year }}</p>
             <p>{{ program.summary }}</p>
             {% for season in seasons %}
-                <a class="btn btn-warning" href="{{ path('program_season_show', { program: program.id, season: season.id}) }}">{{ season.description }}</a></li>
+                <a class="btn btn-warning" href="{{ path('program_season_show', { slug: program.slug, season: season.id}) }}">{{ season.description }}</a></li>
             {% endfor %}
             <a class="btn btn-warning mt-5" href="{{ path('app_index') }}">Retour à l'accueil</a>
         </div>
