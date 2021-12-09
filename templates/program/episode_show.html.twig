@@ -12,6 +12,24 @@
             <h4>Episode {{ episode.number }} : {{ episode.title }}</h4>
             <p>{{ episode.synopsis }}</p>
         </div>
+        <div>
+            <h2>Commentaires</h2>
+            {% for comment in comments %}
+                <p>{{ comment.user.username }}</p>
+                <p>{{ comment.comment }} - {{ comment.rate }}/5</p>
+            {% endfor %}
+        </div>
         <a class="btn btn-warning mt-5" href="{{ path('app_index') }}">Retour à l'accueil</a>
+        {% if app.user %}
+        <div class="container mt-5">
+            <h1 class="text-center mb-5">Ajouter un commentaire</h1>
+            <div class="col-3 mx-auto">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">Ajouter</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}
