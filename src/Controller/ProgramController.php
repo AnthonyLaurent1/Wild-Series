@@ -9,6 +9,7 @@ use App\Entity\Season;
 use App\Form\CommentType;
 use App\Form\ProgramType;
 use App\Service\Slugify;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,23 @@ class ProgramController extends AbstractController
         }
         return $this->render('program/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/watchlist", name="watchlist")
+     */
+    public function addToWatchList(Program $program, ManagerRegistry $managerRegistry): Response
+    {
+        $manager = $managerRegistry->getManager();
+        if ($this->getUser()->isInWatchList($program)) {
+            $this->getUser()->removeWatchlist($program);
+        } else {
+            $this->getUser()->addWatchlist($program);
+        }
+        $manager->flush();
+        return $this->redirectToRoute('program_show', [
+            'slug' => $program->getSlug(),
         ]);
     }
 
@@ -127,4 +145,5 @@ class ProgramController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 }
