@@ -8,9 +8,8 @@
             <img  width="500px" height="500px" src="{{program.poster}}" alt="{{ program.title }} poster">
         </div>
         <div class="m-5">
-            {{ dump( app.user.isInWatchlist(program)) }}
-            <a href="{{ path('program_watchlist', {id: program.id})}}">
-                <i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+            <a id="watchlist" href="{{ path('program_watchlist', {id: program.id})}}">
+                <i class="bi-heart"></i>
             </a>
             <h1 class="text-center mt-3">{{ program.title }}</h1>
             <p>Catégorie : {{ program.category.name }}</p>
